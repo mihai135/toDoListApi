@@ -51,6 +51,20 @@ public class ToDoItemServlet extends HttpServlet {
                     e.getMessage());
         }
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        setAccessControlHeaders(resp);
+        String id = req.getParameter("id");
+        try {
+            toDoItemService.deleteToDoItem(Long.parseLong(id));
+        }catch (Exception e) {
+            resp.sendError(500, "There was an error processing your request. " +
+                    e.getMessage());
+        }
+
+    }
+
     //for Preflight requests
     @Override
     protected void doOptions(HttpServletRequest req, HttpServletResponse resp)
